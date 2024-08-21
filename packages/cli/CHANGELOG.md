@@ -1,5 +1,11 @@
 # preconstruct
 
+## 2.8.8
+
+### Patch Changes
+
+- [#599](https://github.com/preconstruct/preconstruct/pull/599) [`4b920e7`](https://github.com/preconstruct/preconstruct/commit/4b920e77384f9950063dc25047b839d2c1ed00d7) Thanks [@VanTanev](https://github.com/VanTanev)! - Remove unnecessary dependency on `meow` CLI parsing library, as @preconstruct/cli only takes a single positional argument denoting a preconstruct command.
+
 ## 2.8.7
 
 ### Patch Changes
