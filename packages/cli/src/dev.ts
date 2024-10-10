@@ -26,7 +26,7 @@ import { validateProject } from "./validate";
 
 let tsExtensionPattern = /\.tsx?$/;
 
-async function hasDtsFile(entrypoint: Entrypoint) {
+export async function hasDtsFile(entrypoint: Entrypoint) {
   try {
     const filename = entrypoint.source.replace(/\.jsx?/, ".d.ts");
     await fs.stat(filename);
@@ -82,6 +82,10 @@ export async function entrypointHasDefaultExport(
   return false;
 }
 
+function replaceTsExtensionWithJs(pathname: string) {
+  return pathname.replace(/\.(?:tsx|([mc])?ts)$/, ".$1js");
+}
+
 export async function writeDevTSFiles(
   entrypoint: Entrypoint,
   hasDefaultExport: boolean
@@ -102,13 +106,15 @@ export async function writeDevTSFiles(
     path.relative(path.dirname(dtsReexportFilename), entrypoint.source)
   );
 
+  const pathToImport = replaceTsExtensionWithJs(relativePathWithExtension);
+
   let promises: Promise<unknown>[] = [
     fs.outputFile(
       dtsReexportFilename,
       dtsTemplate(
         baseDtsFilename,
         hasDefaultExport,
-        relativePathWithExtension.replace(/\.tsx?$/, ""),
+        pathToImport,
         relativePathWithExtension
       )
     ),
@@ -124,14 +130,6 @@ export async function writeDevTSFiles(
       .replace(/\.js$/, ".d.mts");
     const baseDmtsFilename = path.basename(dmtsReexportFilename);
 
-    const ext = path.extname(relativePathWithExtension).slice(1);
-    const mappedExt = { ts: "js", tsx: "js", mts: "mjs", cts: "cjs" }[ext];
-    const pathToImport = mappedExt
-      ? relativePathWithExtension.replace(
-          new RegExp(`\\.${ext}$`),
-          `.${mappedExt}`
-        )
-      : relativePathWithExtension;
     promises.push(
       fs.outputFile(
         dmtsReexportFilename,

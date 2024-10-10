@@ -1,5 +1,19 @@
 # preconstruct
 
+## 2.8.9
+
+### Patch Changes
+
+- [#604](https://github.com/preconstruct/preconstruct/pull/604) [`79b6d1c`](https://github.com/preconstruct/preconstruct/commit/79b6d1cc75151c35fea48095034dc2c7b36b77e6) Thanks [@emmatown](https://github.com/emmatown)! - Fix outputting `.d.ts` files with extension-less imports that are invalid when using the experimental flag `typeModule` with `moduleResolution: "nodenext"` and `type: "module"` in `dev` and `build`
+
+## 2.8.8
+
+### Patch Changes
+
+- [#599](https://github.com/preconstruct/preconstruct/pull/599) [`4b920e7`](https://github.com/preconstruct/preconstruct/commit/4b920e77384f9950063dc25047b839d2c1ed00d7) Thanks [@VanTanev](https://github.com/VanTanev)! - Remove unnecessary dependency on `meow` CLI parsing library, as @preconstruct/cli only takes a single positional argument denoting a preconstruct command.
+
+- [#602](https://github.com/preconstruct/preconstruct/pull/602) [`b62bd19`](https://github.com/preconstruct/preconstruct/commit/b62bd192465a7e0cef190732fb06c230efcae1fa) Thanks [@emmatown](https://github.com/emmatown)! - Fix referencing a type from another package in the same preconstruct build that has a `.d.ts` file at the entrypoint
+
 ## 2.8.7
 
 ### Patch Changes
